@@ -140,22 +140,6 @@ namespace Discord.WebSocket
             MessageComponent components = null, ISticker[] stickers = null, Embed[] embeds = null, MessageFlags flags = MessageFlags.None, ForumTag[] tags = null)
             => ThreadHelper.CreatePostAsync(this, Discord, title, attachments, archiveDuration, slowmode, text, embed, options, allowedMentions, components, stickers, embeds, flags, tags?.Select(tag => tag.Id).ToArray());
 
-        /// <inheritdoc cref="ITextChannel.GetActiveThreadsAsync(RequestOptions)"/>
-        public Task<IReadOnlyCollection<RestThreadChannel>> GetActiveThreadsAsync(RequestOptions options = null)
-            => ThreadHelper.GetActiveThreadsAsync(Guild, Id, Discord, options);
-
-        /// <inheritdoc cref="IForumChannel.GetJoinedPrivateArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
-        public Task<IReadOnlyCollection<RestThreadChannel>> GetJoinedPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
-            => ThreadHelper.GetJoinedPrivateArchivedThreadsAsync(this, Discord, limit, before, options);
-
-        /// <inheritdoc cref="IForumChannel.GetPrivateArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
-        public Task<IReadOnlyCollection<RestThreadChannel>> GetPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
-            => ThreadHelper.GetPrivateArchivedThreadsAsync(this, Discord, limit, before, options);
-
-        /// <inheritdoc cref="IForumChannel.GetPublicArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
-        public Task<IReadOnlyCollection<RestThreadChannel>> GetPublicArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
-            => ThreadHelper.GetPublicArchivedThreadsAsync(this, Discord, limit, before, options);
-
         #region Webhooks
 
         /// <inheritdoc cref="IIntegrationChannel.CreateWebhookAsync"/>
@@ -186,14 +170,6 @@ namespace Discord.WebSocket
         #endregion
 
         #region IForumChannel
-        async Task<IReadOnlyCollection<IThreadChannel>> IForumChannel.GetActiveThreadsAsync(RequestOptions options)
-            => await GetActiveThreadsAsync(options).ConfigureAwait(false);
-        async Task<IReadOnlyCollection<IThreadChannel>> IForumChannel.GetPublicArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
-            => await GetPublicArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
-        async Task<IReadOnlyCollection<IThreadChannel>> IForumChannel.GetPrivateArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
-            => await GetPrivateArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
-        async Task<IReadOnlyCollection<IThreadChannel>> IForumChannel.GetJoinedPrivateArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
-            => await GetJoinedPrivateArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
 
         async Task<IThreadChannel> IForumChannel.CreatePostAsync(string title, ThreadArchiveDuration archiveDuration, int? slowmode, string text, Embed embed, RequestOptions options, AllowedMentions allowedMentions, MessageComponent components, ISticker[] stickers, Embed[] embeds, MessageFlags flags, ForumTag[] tags)
             => await CreatePostAsync(title, archiveDuration, slowmode, text, embed, options, allowedMentions, components, stickers, embeds, flags, tags).ConfigureAwait(false);

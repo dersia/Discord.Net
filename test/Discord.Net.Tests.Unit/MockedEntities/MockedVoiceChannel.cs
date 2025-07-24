@@ -98,5 +98,8 @@ namespace Discord
         public Task<IWebhook> GetWebhookAsync(ulong id, RequestOptions options = null) => throw new NotImplementedException();
 
         public Task<IReadOnlyCollection<IWebhook>> GetWebhooksAsync(RequestOptions options = null) => throw new NotImplementedException();
+        public Task<IReadOnlyCollection<IThreadChannel>> GetPublicArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null) => throw new NotImplementedException();
+        public Task<IReadOnlyCollection<IThreadChannel>> GetPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null) => throw new NotImplementedException();
+        public Task<IReadOnlyCollection<IThreadChannel>> GetJoinedPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null) => throw new NotImplementedException();
     }
 }

@@ -1,0 +1,40 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Extensions/">
+    <Project Path="experiment/Discord.Net.BuildOverrides/Discord.Net.BuildOverrides.csproj" />
+    <Project Path="src/Discord.Net.Commands/Discord.Net.Commands.csproj">
+      <BuildType Solution="Release|x64" Project="Debug" />
+      <BuildType Solution="Release|x86" Project="Debug" />
+    </Project>
+    <Project Path="src/Discord.Net.Interactions/Discord.Net.Interactions.csproj" />
+    <Project Path="src/Discord.Net.Webhook/Discord.Net.Webhook.csproj" />
+  </Folder>
+  <Folder Name="/Impls/">
+    <Project Path="src/Discord.Net.Rest/Discord.Net.Rest.csproj">
+      <BuildType Solution="Release|x64" Project="Debug" />
+      <BuildType Solution="Release|x86" Project="Debug" />
+    </Project>
+    <Project Path="src/Discord.Net.WebSocket/Discord.Net.WebSocket.csproj" />
+  </Folder>
+  <Folder Name="/Samples/">
+    <Project Path="samples/BasicBot/_BasicBot.csproj" />
+    <Project Path="samples/idn/idn.csproj" />
+    <Project Path="samples/InteractionFramework/_InteractionFramework.csproj" />
+    <Project Path="samples/ShardedClient/_ShardedClient.csproj" />
+    <Project Path="samples/TextCommandFramework/_TextCommandFramework.csproj" />
+    <Project Path="samples/WebhookClient/_WebhookClient.csproj" />
+    <Project Path="src/Discord.Net.Examples/Discord.Net.Examples.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="test/Discord.Net.Tests.Integration/Discord.Net.Tests.Integration.csproj" />
+    <Project Path="test/Discord.Net.Tests.Unit/Discord.Net.Tests.Unit.csproj" />
+  </Folder>
+  <Project Path="src/Discord.Net.Core/Discord.Net.Core.csproj" />
+  <Properties Name="CodealikeProperties" Scope="PostLoad">
+    <Property Name="SolutionGuid" Value="a45217b4-a401-4dbf-8654-34d2ec034cd9" />
+  </Properties>
+</Solution>

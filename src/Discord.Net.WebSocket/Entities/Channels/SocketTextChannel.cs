@@ -130,10 +130,6 @@ namespace Discord.WebSocket
             return thread;
         }
 
-        /// <inheritdoc cref="ITextChannel.GetActiveThreadsAsync(RequestOptions)"/>
-        public virtual Task<IReadOnlyCollection<RestThreadChannel>> GetActiveThreadsAsync(RequestOptions options = null)
-            => ThreadHelper.GetActiveThreadsAsync(Guild, Id, Discord, options);
-
         #endregion
 
         #region Messages
@@ -386,9 +382,6 @@ namespace Discord.WebSocket
         #region ITextChannel
         async Task<IThreadChannel> ITextChannel.CreateThreadAsync(string name, ThreadType type, ThreadArchiveDuration autoArchiveDuration, IMessage message, bool? invitable, int? slowmode, RequestOptions options)
             => await CreateThreadAsync(name, type, autoArchiveDuration, message, invitable, slowmode, options);
-        /// <inheritdoc />
-        async Task<IReadOnlyCollection<IThreadChannel>> ITextChannel.GetActiveThreadsAsync(RequestOptions options)
-            => await GetActiveThreadsAsync(options);
         #endregion
 
         #region IGuildChannel

@@ -169,6 +169,22 @@ namespace Discord.WebSocket
         public virtual Task RemovePermissionOverwriteAsync(IRole role, RequestOptions options = null)
             => ChannelHelper.RemovePermissionOverwriteAsync(this, Discord, role, options);
 
+        /// <inheritdoc cref="IGuildChannel.GetActiveThreadsAsync(RequestOptions)"/>
+        public virtual Task<IReadOnlyCollection<RestThreadChannel>> GetActiveThreadsAsync(RequestOptions options = null)
+            => ThreadHelper.GetActiveThreadsAsync(Guild, Id, Discord, options);
+
+        /// <inheritdoc cref="IGuildChannel.GetJoinedPrivateArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
+        public virtual Task<IReadOnlyCollection<RestThreadChannel>> GetJoinedPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
+            => ThreadHelper.GetJoinedPrivateArchivedThreadsAsync(this, Discord, limit, before, options);
+
+        /// <inheritdoc cref="IGuildChannel.GetPrivateArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
+        public virtual Task<IReadOnlyCollection<RestThreadChannel>> GetPrivateArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
+            => ThreadHelper.GetPrivateArchivedThreadsAsync(this, Discord, limit, before, options);
+
+        /// <inheritdoc cref="IGuildChannel.GetPublicArchivedThreadsAsync(int?, DateTimeOffset?, RequestOptions)"/>
+        public virtual Task<IReadOnlyCollection<RestThreadChannel>> GetPublicArchivedThreadsAsync(int? limit = null, DateTimeOffset? before = null, RequestOptions options = null)
+            => ThreadHelper.GetPublicArchivedThreadsAsync(this, Discord, limit, before, options);
+
         public new virtual SocketGuildUser GetUser(ulong id) => null;
 
         /// <summary>
@@ -223,6 +239,15 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         Task<IGuildUser> IGuildChannel.GetUserAsync(ulong id, CacheMode mode, RequestOptions options)
             => Task.FromResult<IGuildUser>(GetUser(id)); //Overridden in Text/Voice
+
+        async Task<IReadOnlyCollection<IThreadChannel>> IGuildChannel.GetActiveThreadsAsync(RequestOptions options)
+            => await GetActiveThreadsAsync(options).ConfigureAwait(false);
+        async Task<IReadOnlyCollection<IThreadChannel>> IGuildChannel.GetPublicArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
+            => await GetPublicArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
+        async Task<IReadOnlyCollection<IThreadChannel>> IGuildChannel.GetPrivateArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
+            => await GetPrivateArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
+        async Task<IReadOnlyCollection<IThreadChannel>> IGuildChannel.GetJoinedPrivateArchivedThreadsAsync(int? limit, DateTimeOffset? before, RequestOptions options)
+            => await GetJoinedPrivateArchivedThreadsAsync(limit, before, options).ConfigureAwait(false);
         #endregion
 
         #region IChannel
